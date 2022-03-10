@@ -10,43 +10,50 @@
 <body>
     <div id="app">
         <div class="container">
-            {{ formData }}
-            <form>
+            <v-form v-slot="{ errors }" @submit.prevent="onSubmit">
+                <!-- 姓名 -->
                 <div class="py-1">
                     <label for="name" class="form-label">姓名</label>
-                    <input type="text" class="form-control" id="name" v-model="formData.name">
+                    <v-field type="text" class="form-control" id="name" name="name" v-model="formData.name" rules="required"></v-field>
+                    <error-message name="name"></error-message>
                 </div>
+                <!-- Email -->
                 <div class="py-1">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" v-model="formData.email">
+                    <v-field type="email" class="form-control" id="email" name="email" v-model="formData.email" rules="email|required"></v-field>
+                    <error-message name="email"></error-message>
                 </div>
+                <!-- 電話 -->
                 <div class="py-1">
                     <label for="tel" class="form-label">電話</label>
-                    <input type="tel" class="form-control" id="tel" v-model="formData.tel">
+                    <v-field type="tel" class="form-control" id="tel" name="tel" v-model="formData.tel" rules="min:8|required"></v-field>
+                    <error-message name="tel"></error-message>
                 </div>
+                <!-- 地址 -->
                 <div class="py-1">
                     <label for="address" class="form-label">地址</label>
-                    <input type="text" class="form-control" id="address" v-model="formData.address">
+                    <v-field type="text" class="form-control" id="address" name="address" v-model="formData.address" rules="required"></v-field>
+                    <error-message name="address"></error-message>
                 </div>
+                <!-- 留言 -->
                 <div class="py-1">
                     <label for="message" class="form-label">留言</label>
-                    <textarea id="message" class="form-control" cols="30" rows="10" v-model="formData.message"></textarea>
+                    <v-field type="text" class="form-control" id="message" name="message" v-model="formData.message"></v-field>
                 </div>
+                <!-- 送出 -->
                 <div class="py-1">
-                    <input type="submit" class="btn btn-primary" value="送出">
+                    <button type="submit" class="btn btn-primary">送出</button>
                 </div>
-            </form>
+            </v-form>
         </div>
     </div>
 
-    <!-- 姓名：必填
-    Email：必填 / 需要符合格式 / input type 為 email
-    電話：必填 / 超過 8 碼 / input type 為 tel
-    地址：必填
-    留言：非必填 -->
-    
+    <!-- Validate CDN 沒有提供 ES Module，因此載入 Vue 不能使用 ES Module -->
+    <script src="https://unpkg.com/vue@next"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.5.8/vee-validate.min.js"></script>
+    <!-- 驗證 -->
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.5.8/dist/vee-validate-rules.min.js"></script>
+    <!-- 多國語言 -->
     <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.5.8/dist/vee-validate-i18n.min.js"></script>
     <script type="module" src="./script.js"></script>
 </body>
